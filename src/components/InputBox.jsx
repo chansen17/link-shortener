@@ -7,20 +7,33 @@ const API = 'https://api.shrtco.de/v2/';
 const InputBox = () => {
 
     const [input, setInput] = useState('');
-    // const [link, setLink] = useState('');
     const [links, setLinks] = useState([]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        
         axios.post(API + `shorten?url=${input}`)
             .then(data => {
-                // setLink(data.data.result);
-                setLinks([...links, data?.data?.result]);
-                // console.log('data: ', data.data.result);
-                console.log('links:', links);
+                setLinks([...links, data?.data?.result])
             });
     }
 
+    useEffect(() => {
+        localStorage.setItem('items', JSON.stringify(links));
+    })
+
+    useEffect(() => {
+        const inStoreItems = localStorage.getItem('items');
+        if(inStoreItems) {
+            console.log('items are in storage: ', links)
+            setLinks(JSON.parse(inStoreItems));
+        } else {
+            console.log('items not in storage')
+        }
+        
+    }, [])
+
+    
     return (
         <div className="w-full">
             <div className="mxw">
@@ -32,8 +45,8 @@ const InputBox = () => {
                     </form>
                 </div>
                 {/* links */}
-                {links && links?.map(link => (
-                    <div className="my-4 py-2 px-3 rounded-md flex justify-between items-center gap-2 md:gap-4">
+                {links?.map(link => (
+                    <div key={link?.code} className="my-4 py-2 px-3 rounded-md flex justify-between items-center gap-2 md:gap-4">
                         <p className="text-md md:text-lg text-gray-900 truncate w-[150px] md:w-full">{link.original_link}</p>
                         <div className="flex items-center gap-4">
                             <p className="text-md md:text-lg text-cyan-500">{link?.short_link}</p>
