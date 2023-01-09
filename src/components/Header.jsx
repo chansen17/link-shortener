@@ -10,7 +10,7 @@ const Header = () => {
                     <div>
                         <h2 className='text-5xl md:text-6xl lg:text-7xl font-black text-gray-800'>More than just shorter links</h2>
                         <p className='max-w-md py-2 text-md md:text-lg lg:text-xl text-gray-500 font-light'>Build your brands recognition and get detailed insights on your links are performing.</p>
-                        <button className='mt-4 py-2 px-4 rounded-full bg-teal-500 hover:bg-teal-500/50 duration-300 text-white font-medium'>Get Started</button>
+                        <button className='mt-4 py-4 px-3 rounded-full bg-teal-500 hover:bg-teal-500/50 duration-300 text-white font-medium'>Get Started</button>
                     </div>
                     <div>
                         <img src={HeaderAsset} className="ml-24 md:ml-32 lg:ml-52 xl:ml-72 scale-105 h-full w-full" alt="" />
