@@ -26,6 +26,8 @@ const InputBox = () => {
     const [copied, setCopied] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    // const [badReq, setBadReq] = useState(false);
 
     const notify = () => toast.success('Short link copied!', {
         position: "top-center",
@@ -39,7 +41,7 @@ const InputBox = () => {
         });
 
 
-    const warning = () => toast.warn('⚠ Woh! Settle down tiger. Try not to spam me!');
+    // const warning = () => toast.warn('⚠ Woh! Settle down tiger. Try not to spam me!');
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -49,15 +51,17 @@ const InputBox = () => {
             setError(false);
             axios.post(API + `shorten?url=${input}`)
             .then(data => {
-
-                // todo do an if statement or something to check to prevent duplucate link being added to state and local storage
+                console.log('response:', data);
+                // todo do an if statement or similiar to check and prevent duplucate link being added to state and local storage
                 setLinks([...links, data?.data?.result]);
                 setLoading(false);
-
-                // if(links?.length > 9) {
-                //     warning();
-                // }
-            });
+            })
+            .catch(err => {
+                console.log('an error occured: ', err.response.data);
+                // setBadReq(true);
+                setErrorMessage(err.response.data.error);
+            })
+                
         } else {
             setError(true);
         }
@@ -72,13 +76,28 @@ const InputBox = () => {
         setLinks(newItems);
     }
 
+    const refresh = () => {
+        window.location.reload();
+    }
 
     useEffect(() => {
         localStorage.setItem('items', JSON.stringify(links));
-    }, [links])
+    }, [links]);
+
+    if(errorMessage) {
+        return (
+            <div className="fixed top-0 left-0 h-screen w-full bg-gray-50/80 backdrop-blur-md grid place-items-center z-50">
+                <div className="max-w-2xl mx-auto px-5 space-y-3">
+                    <h3 className="text-center">😔</h3>
+                    <p className="text-md md:text-lg font-semibold">{errorMessage}</p>
+                    <button onClick={refresh} className="w-full mx-auto py-4 px-2 rounded-md bg-teal-500 hover:bg-teal-200 duration-200 font-semibold text-white hover:text-black">Try Again</button>
+                </div>
+            </div>
+        )
+    }
     
     return (
-        <div className="w-full">
+        <div className="w-full bg-blue-50">
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -94,9 +113,9 @@ const InputBox = () => {
             <div className="mxw">
                 <div className="py-12 px-5 md:px-14 bg-slate-800 relative rounded-lg">
                 <img src={BgImage} className="absolute top-0 left-0 h-full w-full rounded-lg" alt="" />
-                    <form onSubmit={onSubmit} className="flex flex-col md:flex-row items-center gap-2">
-                        <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Shorten a link here.." className='py-2 px-4 z-10 rounded-md w-full md:w-3/4' />
-                        <button disabled={loading} className={input == '' ? 'py-2 px-4 bg-teal-600 rounded-lg z-10 w-full md:w-1/4 font-semibold text-white' : 'py-2 px-4 bg-teal-400 rounded-lg z-10 w-full md:w-1/4 font-semibold text-white flex items-center justify-center'}>
+                    <form onSubmit={onSubmit} className="flex flex-col md:flex-row items-center gap-8">
+                        <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Shorten a link here.." className={error ? "py-4 px-3 z-10 border-2 outline-none border-red-500 rounded-md w-full md:w-3/4" : "py-4 px-3 z-10 border outline-none rounded-md w-full md:w-3/4"} />
+                        <button disabled={loading} className={input == '' ? 'p-4 bg-teal-600 rounded-lg z-10 w-full md:w-1/4 font-semibold text-white' : 'py-4 px-3 bg-teal-400 rounded-lg z-10 w-full md:w-1/4 font-semibold text-white flex items-center justify-center'}>
                             {loading ? <FaSpinner /> : "Shorten it!"}
                         </button>
                     </form>
@@ -113,7 +132,7 @@ const InputBox = () => {
                     </div>
                 )}
                 {links && links?.map(link => (
-                    <motion.div key={link?.code} initial={{ opacity: 0, translateY: 10, translateX: 10 }} exit={{ opacity: 0 }} animate={{ opacity: 1, translateY: 0, translateX: 0}} className="mt-6 bg-white my-4 p-3 rounded-md flex justify-between items-center gap-2 md:gap-4">
+                    <motion.div key={link?.code} initial={{ opacity: 0, translateY: 10, translateX: 10 }} exit={{ opacity: 0 }} animate={{ opacity: 1, translateY: 0, translateX: 0}} className="mt-6 bg-white p-3 rounded-md flex justify-between items-center gap-2 md:gap-4">
                         <p className="text-md md:text-lg text-gray-900 truncate w-[150px] md:w-full font-medium">{link.original_link}</p>
                         <div className="flex items-center gap-4">
                             <p className="text-md md:text-lg text-teal-400">{link?.short_link}</p>

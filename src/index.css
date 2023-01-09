@@ -9,6 +9,6 @@
   }
 
   .mxw {
-    @apply max-w-[1440px] mx-auto px-10;
+    @apply max-w-7xl mx-auto px-10;
   }
 }
