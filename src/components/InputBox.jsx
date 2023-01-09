@@ -132,15 +132,15 @@ const InputBox = () => {
                     </div>
                 )}
                 {links && links?.map(link => (
-                    <motion.div key={link?.code} initial={{ opacity: 0, translateY: 10, translateX: 10 }} exit={{ opacity: 0 }} animate={{ opacity: 1, translateY: 0, translateX: 0}} className="mt-6 bg-white p-3 rounded-md flex justify-between items-center gap-2 md:gap-4">
+                    <motion.div key={link?.code} initial={{ opacity: 0, translateY: 10, translateX: 10 }} exit={{ opacity: 0 }} animate={{ opacity: 1, translateY: 0, translateX: 0}} className="mt-6 bg-white p-3 rounded-md flex justify-between items-center gap-2 hover:translate-y-2 group">
                         <p className="text-md md:text-lg text-gray-900 truncate w-[150px] md:w-full font-medium">{link.original_link}</p>
                         <div className="flex items-center gap-4">
                             <p className="text-md md:text-lg text-teal-400">{link?.short_link}</p>
+                            <button onClick={() => onDelelete(link.code)} className="hidden opacity-0 group-hover:block group-hover:opacity-100 py-2 px-4 rounded-md bg-teal-600 text-white hover:bg-rose-500 duration-300">-</button>
                             <CopyToClipboard text={link.short_link}
                                 onCopy={() => setCopied(true)}>
                                 <button onClick={notify} className="py-2 px-4 rounded-md bg-teal-400 text-white hover:bg-gray-900 hover:text-gray-200 duration-300">copy</button>
                             </CopyToClipboard>
-                            <button onClick={() => onDelelete(link.code)} className="py-2 px-4 rounded-md bg-teal-600 text-white hover:bg-rose-500 duration-300">-</button>
                         </div>
                     </motion.div>
                 ))}
