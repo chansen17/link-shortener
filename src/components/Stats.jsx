@@ -6,7 +6,7 @@ const Stats = () => {
         <div className="w-full min-h-[50vh] py-12 bg-blue-50">
             <div className="mxw w-full text-center mt-16 py-6">
                 <h2 className="text-2xl md:text-3xl font-black text-gray-700">Advanced Statistics</h2>
-                <p className="text-md md:text-lg font-light text-gray-500">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi, enim nam.</p>
+                <p className="text-md md:text-lg font-light text-gray-500">Track how your links are performing across the web with our advanced statistics dashboard.</p>
 
                 <section className="relative">
 
@@ -15,7 +15,7 @@ const Stats = () => {
                         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] h-[60%] w-2 md:w-full md:h-2 bg-cyan-400" />
 
                         <div className="h-44 rounded-sm pt-12 pb-6 px-5 bg-white relative text-left shadow-sm">
-                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-slate-800 absolute -top-6 md:-top-10 grid place-items-center">
+                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full shadow-lg shadow-slate-800/40 bg-slate-800 absolute -top-6 md:-top-10 grid place-items-center">
                             <FaChartBar className="text-lg md:text-xl lg:text-2xl text-teal-500" />
                             </div>
                             <h3 className='text-md md:text-lg lg:text-xl pb-3 text-gray-700 font-bold'>Brand Recognition</h3>
@@ -23,7 +23,7 @@ const Stats = () => {
                         </div>  
 
                         <div className="h-44 rounded-sm pt-12 pb-6 px-5 bg-white relative text-left shadow-sm md:mt-6">
-                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-slate-800 absolute -top-6 md:-top-10 grid place-items-center">
+                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full shadow-lg shadow-slate-800/40 bg-slate-800 absolute -top-6 md:-top-10 grid place-items-center">
                             <FaTachometerAlt className="text-lg md:text-xl lg:text-2xl text-teal-500" />
                             </div>
                             <h3 className='text-md md:text-lg lg:text-xl pb-3 text-gray-700 font-bold'>Detailed Records</h3>
@@ -31,7 +31,7 @@ const Stats = () => {
                         </div>  
 
                         <div className="h-44 rounded-sm pt-12 pb-6 px-5 bg-white relative text-left shadow-sm md:mt-12">
-                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-slate-800 absolute -top-6 md:-top-10 grid place-items-center">
+                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full shadow-lg shadow-slate-800/40 bg-slate-800 absolute -top-6 md:-top-10 grid place-items-center">
                                 <FaTools className="text-lg md:text-xl lg:text-2xl text-teal-500" />
                             </div>
                             <h3 className='text-md md:text-lg lg:text-xl pb-3 text-gray-700 font-bold'>Fully customizable</h3>

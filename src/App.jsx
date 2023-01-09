@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -6,7 +7,7 @@ import Homepage from './pages/Homepage';
 
 const App = () => {
   return (
-    <div>
+    <AnimatePresence>
       <Navbar />
       <Router>
         <Routes>
@@ -14,7 +15,7 @@ const App = () => {
           <Route exact path="/account" element={<Account/>} />
         </Routes>
       </Router>
-    </div>
+    </AnimatePresence>
   );
 }
 
